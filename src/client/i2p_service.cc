@@ -32,6 +32,7 @@
 
 #include <string>
 #include "i2p_service.h"
+#include "client_context.h"
 namespace i2p {
 namespace client {
 

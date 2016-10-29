@@ -42,7 +42,6 @@
 #include <boost/asio.hpp>
 #include "destination.h"
 #include "identity.h"
-#include "client_context.h"
 
 
 namespace i2p {
