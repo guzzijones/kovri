@@ -121,7 +121,7 @@ class I2PService {
   * @class I2PServiceHandler
   * @brief Simple interface for I2PHandlers. abstract class for handler
   * Simple interface for I2PHandlers. abstract class for handler
-  * Handler will take listener away from server and process message;
+  * Handler will take listener away from server and process messaging;
   * thus allowing server to continue listening.
   * Allows detection of finalization amongst other things.
   */
@@ -137,18 +137,18 @@ class I2PServiceHandler {
   virtual void Handle() {}  // Start handling the socket
 
  protected:
-  // Call when terminating or handing over to avoid race conditions
+  /// @brief Call when terminating or handing over to avoid race conditions
   inline bool Kill() { return m_Dead.exchange(true); }
 
-  // Call to know if the handler is dead
+  /// @brief Call to know if the handler is dead
   inline bool Dead() { return m_Dead; }
 
-  // Call when done to clean up (make sure Kill is called first)
+  /// @brief Call when done to clean up (make sure Kill is called first)
   inline void Done(std::shared_ptr<I2PServiceHandler> me) {
     if (m_Service)
       m_Service->RemoveHandler(me);
   }
-  //  Call to talk with the owner
+  /// @brief  Call to talk with the owner
   inline I2PService* GetOwner() { return m_Service; }
 
  private:
@@ -230,11 +230,12 @@ class TCPIPAcceptor : public I2PService {
   std::string m_Address;
 
  private:
-  /// @brief accept connection ; create socket for  handler
+  /// @brief accept connection ; create socket for  handler to listen on 
+  /// pass handler function; this is what starts the communication
   void Accept();
-  /// @brief  callback function to handle a requested connection ;
+  /// @brief  callback function to handle data transfers ;
   /// @param ecode
-  /// @param socket socket creted by accept
+  /// @param socket socket created by accept
   void HandleAccept(
       const boost::system::error_code& ecode,
       std::shared_ptr<boost::asio::ip::tcp::socket> socket);
