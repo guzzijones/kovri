@@ -2,6 +2,7 @@ include_directories("../")
 
 set(UTIL_SRC
   "base.cc"
+  "benchmark.cc"
   "main.cc")
 
 if(WITH_BINARY)
