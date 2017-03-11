@@ -112,11 +112,13 @@ bool Benchmark::Impl(const std::string& cmd_name,
       bpo::store(parsed, vm);
       bpo::notify(vm);
     }
-  catch (bpo::error& e)
+  catch (...)
     {
-      PrintUsage(cmd_name);
+      kovri::core::Exception ex(GetName().c_str());
+      ex.Dispatch(__func__);
       return false;
     }
+
   if (args.size() == 0)  // no arguments
     {
       PrintUsage(cmd_name);
@@ -167,9 +169,9 @@ void Benchmark::BenchmarkTest(
                   end2 - begin2);
         }
       catch (...)
-        {  // Crypto-specific exceptions are
-          // (should be) caught internally
-          LOG(error) << "!!! benchmark() caught exception";
+        {
+          kovri::core::Exception ex(GetName().c_str());
+          ex.Dispatch(__func__);
           break;
         }
     }
@@ -186,5 +188,5 @@ void Benchmark::BenchmarkTest(
 
 void Benchmark::PrintUsage(const std::string& name) const
 {
-  std::cout << name << ": "<< m_Desc << std::endl;
+  LOG(info) << name << ": "<< m_Desc << std::endl;
 }

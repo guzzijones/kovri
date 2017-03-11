@@ -44,7 +44,7 @@ class Benchmark : public Command
 {
  public:
   typedef void (*KeyGenerator)(uint8_t*, uint8_t*);
-  static const size_t BenchmarkCount = 1000;
+  static const std::size_t BenchmarkCount = 1000;
   Benchmark();
   boost::program_options::options_description m_Desc;
   std::string m_OptType;
