@@ -336,7 +336,6 @@ void HTTP::PrepareI2PRequest() {
 bool HTTP::ProcessI2PResponse() {
   std::string http_version;
   std::uint16_t response_code = 0;
-  m_Response >> http_version;
   m_Response >> response_code;
   if (response_code == static_cast<std::uint16_t>(ResponseCode::HTTP_OK)) {
     bool is_chunked = false;
